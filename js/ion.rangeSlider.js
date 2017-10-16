@@ -307,6 +307,7 @@
 
             grid: false,
             grid_margin: true,
+            grid_label_offset: 0,//Ajouté par Jona
             grid_num: 4,
             grid_snap: false,
 
@@ -375,6 +376,7 @@
 
             grid: $inp.data("grid"),
             grid_margin: $inp.data("gridMargin"),
+            grid_label_offset: $inp.data("gridLabelOffset"),
             grid_num: $inp.data("gridNum"),
             grid_snap: $inp.data("gridSnap"),
 
@@ -2298,8 +2300,8 @@
                 }
             }
 
-            this.calcGridCollision(2, start, finish);
-            this.calcGridCollision(4, start, finish);
+            // this.calcGridCollision(2, start, finish);
+            this.calcGridCollision(start, finish);
 
             for (i = 0; i < num; i++) {
                 label = this.$cache.grid_labels[i][0];
@@ -2312,24 +2314,39 @@
 
         // Collisions Calc Beta
         // TODO: Refactor then have plenty of time
-        calcGridCollision: function (step, start, finish) {
-            var i, next_i, label,
-                num = this.coords.big_num;
-
-            for (i = 0; i < num; i += step) {
-                next_i = i + (step / 2);
-                if (next_i >= num) {
-                    break;
-                }
-
-                label = this.$cache.grid_labels[next_i][0];
-
-                if (finish[i] <= start[next_i]) {
+        calcGridCollision: function ( start, finish) {
+            // var step = 1;
+            // var i, next_i, label,
+            // num = this.coords.big_num;
+            console.log(this.$cache.grid_labels);
+            var offset = this.options.grid_label_offset;
+            for (i=0;i<this.$cache.grid_labels.length;i++){
+                var label = this.$cache.grid_labels[i][0];
+                if ((i+offset)%4 ==0 ){
                     label.style.visibility = "visible";
                 } else {
                     label.style.visibility = "hidden";
                 }
             }
+            // $(this.$cache.grid_labels.each(function(elem){
+            //    console.log('elem'); 
+            //    
+            // });
+            //
+            // for (i = 0; i <= num; i += step) {
+            //     next_i = i + (step);
+            //     if (next_i >= num) {
+            //         break;
+            //     }
+            //     //
+            //     label = this.$cache.grid_labels[i][0];
+            //    
+            //     if (i%4 == 0){
+            //         label.style.visibility = "visible";
+            //     } else {
+            //         label.style.visibility = "hidden";
+            //     }
+            // }
         },
 
         calcGridMargin: function () {
