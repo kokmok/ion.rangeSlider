@@ -2318,11 +2318,12 @@
             // var step = 1;
             // var i, next_i, label,
             // num = this.coords.big_num;
-            console.log(this.$cache.grid_labels);
+            console.log('ofsetting');
+            console.log(this.options.grid_label_offset);
             var offset = this.options.grid_label_offset;
             for (i=0;i<this.$cache.grid_labels.length;i++){
                 var label = this.$cache.grid_labels[i][0];
-                if ((i+offset)%4 ==0 ){
+                if ((i-offset)%4 ==0 ){
                     label.style.visibility = "visible";
                 } else {
                     label.style.visibility = "hidden";
