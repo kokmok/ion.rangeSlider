@@ -308,6 +308,7 @@
             grid: false,
             grid_margin: true,
             grid_label_offset: 0,//Ajouté par Jona
+            visible_labels_indexes: [],//Ajouté par Jona
             grid_num: 4,
             grid_snap: false,
 
@@ -377,6 +378,7 @@
             grid: $inp.data("grid"),
             grid_margin: $inp.data("gridMargin"),
             grid_label_offset: $inp.data("gridLabelOffset"),
+            visible_labels_indexes: $inp.data("visibleLabelsIndexes"),
             grid_num: $inp.data("gridNum"),
             grid_snap: $inp.data("gridSnap"),
 
@@ -2315,20 +2317,24 @@
         // Collisions Calc Beta
         // TODO: Refactor then have plenty of time
         calcGridCollision: function ( start, finish) {
-            // var step = 1;
-            // var i, next_i, label,
-            // num = this.coords.big_num;
-            console.log('ofsetting');
-            console.log(this.options.grid_label_offset);
-            var offset = this.options.grid_label_offset;
+            //On cache tout
             for (i=0;i<this.$cache.grid_labels.length;i++){
                 var label = this.$cache.grid_labels[i][0];
-                if ((i-offset)%4 ==0 ){
-                    label.style.visibility = "visible";
-                } else {
-                    label.style.visibility = "hidden";
-                }
+                // if ((i-offset)%4 ==0 ){
+                //     label.style.visibility = "visible";
+                // } else {
+                label.style.visibility = "hidden";
+                // }
             }
+            //On affiche les labels demandés
+            for (i=0;i<this.options.visible_labels_indexes.length;i++){
+                var label = this.$cache.grid_labels[this.options.visible_labels_indexes[i]][0];
+                label.style.visibility = "visible";
+            }
+            
+            
+            
+            
             // $(this.$cache.grid_labels.each(function(elem){
             //    console.log('elem'); 
             //    
